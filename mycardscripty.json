@@ -1,0 +1,34 @@
+[
+  {
+    "id": 18,
+    "type": 11,
+    "name": "\u000f\u003c%\u0026\u003e#\u0026/j\r/:\"38%",
+    "colorname": 0,
+    "cardcolor": "\u0027%9\u003e/8",
+    "atk": 200,
+    "def": 400,
+    "attr": 12,
+    "star": 1,
+    "description": "\u001d\"/$j\u003e\"#9j)+8.j#9j./9\u003e8%3/.j(3j(+\u003e\u003e\u0026/j+$.j9/$\u003ej\u003e%j\u003e\"/j\r8+\u003c/3+8.pj\u0013%?j)+$j\u003e+8-/\u003ej{jh\u000f\u003c%\u00269+?8hj\u0027%$9\u003e/8j#$j3%?8j\r8+\u003c/3+8.qj\u0019:/)#+\u0026j\u0019?\u0027\u0027%$j\u003e\"+\u003ej\u003e+8-/\u003ed",
+    "effect": 0,
+    "guardian1": 3,
+    "guardian2": 9,
+    "idd": 55488859
+  },
+  {
+    "id": 19,
+    "type": 24,
+    "name": "\u000b$)#/$\u003ej\b8+#$",
+    "colorname": 0,
+    "cardcolor": "\u0027%9\u003e/8",
+    "atk": 1000,
+    "def": 700,
+    "attr": 7,
+    "star": 3,
+    "description": "\u000bj,+\u0026\u0026/$j,+#83j\u003e\"+\u003ej#9j:%\u003d/8,?\u0026j#$j\u003e\"/j.+8!d",
+    "effect": 0,
+    "guardian1": 1,
+    "guardian2": 8,
+    "idd": 42431843
+  }
+]

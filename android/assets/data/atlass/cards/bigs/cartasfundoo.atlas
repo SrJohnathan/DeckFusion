@@ -1,0 +1,97 @@
+
+cartasfundoo.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+camp
+  rotate: false
+  xy: 2, 514
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+cardfusion
+  rotate: false
+  xy: 2, 258
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+cardritual
+  rotate: false
+  xy: 181, 514
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+effect
+  rotate: false
+  xy: 2, 2
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+fusioneffect
+  rotate: false
+  xy: 181, 258
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+magica
+  rotate: false
+  xy: 360, 514
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+moster
+  rotate: false
+  xy: 181, 2
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+ob
+  rotate: false
+  xy: 360, 258
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+ra
+  rotate: false
+  xy: 539, 514
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+serpgeh
+  rotate: false
+  xy: 360, 2
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+slif
+  rotate: false
+  xy: 539, 258
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+timaeus
+  rotate: false
+  xy: 718, 514
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1
+trap
+  rotate: false
+  xy: 539, 2
+  size: 177, 254
+  orig: 177, 254
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,117 @@
+
+small.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+camp
+  rotate: false
+  xy: 2, 544
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+cardfusion
+  rotate: false
+  xy: 2, 273
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+cardritual
+  rotate: false
+  xy: 208, 544
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+effect
+  rotate: false
+  xy: 2, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+fundo
+  rotate: false
+  xy: 208, 273
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+fusioneffect
+  rotate: false
+  xy: 414, 544
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+magica
+  rotate: false
+  xy: 208, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+mask
+  rotate: false
+  xy: 414, 273
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+moster
+  rotate: false
+  xy: 620, 544
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+ob
+  rotate: false
+  xy: 414, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+ra
+  rotate: false
+  xy: 620, 273
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+serpgeh
+  rotate: false
+  xy: 620, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+
+small2.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+slif
+  rotate: false
+  xy: 2, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+timaeus
+  rotate: false
+  xy: 208, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+trap
+  rotate: false
+  xy: 414, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1

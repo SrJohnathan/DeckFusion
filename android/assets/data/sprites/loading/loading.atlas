@@ -1,0 +1,90 @@
+
+loading.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1
+  rotate: false
+  xy: 2, 340
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 2, 171
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 254, 340
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 2, 2
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 254, 171
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 506, 340
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 254, 2
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 506, 171
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 758, 340
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 506, 2
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 758, 171
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 758, 2
+  size: 250, 167
+  orig: 250, 167
+  offset: 0, 0
+  index: -1

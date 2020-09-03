@@ -1,0 +1,20 @@
+
+cardtresd.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cardfront
+  rotate: false
+  xy: 2, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1
+carfback
+  rotate: false
+  xy: 208, 2
+  size: 204, 269
+  orig: 204, 269
+  offset: 0, 0
+  index: -1

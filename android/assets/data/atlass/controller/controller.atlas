@@ -1,0 +1,83 @@
+
+controller.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bola
+  rotate: false
+  xy: 557, 16
+  size: 71, 74
+  orig: 71, 74
+  offset: 0, 0
+  index: -1
+bottom
+  rotate: false
+  xy: 2, 2
+  size: 76, 88
+  orig: 76, 88
+  offset: 0, 0
+  index: -1
+l1
+  rotate: false
+  xy: 630, 30
+  size: 48, 60
+  orig: 48, 60
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 80, 14
+  size: 88, 76
+  orig: 88, 76
+  offset: 0, 0
+  index: -1
+quadrado
+  rotate: false
+  xy: 338, 15
+  size: 71, 75
+  orig: 71, 75
+  offset: 0, 0
+  index: -1
+r1
+  rotate: false
+  xy: 680, 30
+  size: 47, 60
+  orig: 47, 60
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 170, 14
+  size: 88, 76
+  orig: 88, 76
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 729, 50
+  size: 53, 40
+  orig: 53, 40
+  offset: 0, 0
+  index: -1
+top
+  rotate: false
+  xy: 260, 2
+  size: 76, 88
+  orig: 76, 88
+  offset: 0, 0
+  index: -1
+triangulo
+  rotate: false
+  xy: 411, 15
+  size: 71, 75
+  orig: 71, 75
+  offset: 0, 0
+  index: -1
+xis
+  rotate: false
+  xy: 484, 15
+  size: 71, 75
+  orig: 71, 75
+  offset: 0, 0
+  index: -1

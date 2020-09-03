@@ -1,0 +1,48 @@
+
+hud.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+disco1
+  rotate: false
+  xy: 2, 574
+  size: 800, 216
+  orig: 800, 216
+  offset: 0, 0
+  index: -1
+disco2
+  rotate: false
+  xy: 2, 356
+  size: 800, 216
+  orig: 800, 216
+  offset: 0, 0
+  index: -1
+field
+  rotate: false
+  xy: 804, 701
+  size: 204, 89
+  orig: 204, 89
+  offset: 0, 0
+  index: -1
+info
+  rotate: false
+  xy: 2, 207
+  size: 800, 147
+  orig: 800, 147
+  offset: 0, 0
+  index: -1
+nada
+  rotate: false
+  xy: 2, 2
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+vida
+  rotate: false
+  xy: 2, 14
+  size: 266, 191
+  orig: 266, 191
+  offset: 0, 0
+  index: -1

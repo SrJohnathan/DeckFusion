@@ -1,0 +1,104 @@
+
+milenios.png
+size: 1024,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+anel
+  rotate: false
+  xy: 2, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+aneld
+  rotate: false
+  xy: 65, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+balanca
+  rotate: false
+  xy: 128, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+balancad
+  rotate: false
+  xy: 191, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+chave
+  rotate: false
+  xy: 254, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+chaved
+  rotate: false
+  xy: 317, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+colar
+  rotate: false
+  xy: 380, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+colard
+  rotate: false
+  xy: 443, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+enigma
+  rotate: false
+  xy: 506, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+enigmad
+  rotate: false
+  xy: 569, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+olho
+  rotate: false
+  xy: 632, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+olhod
+  rotate: false
+  xy: 695, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+varinha
+  rotate: false
+  xy: 758, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+varinhad
+  rotate: false
+  xy: 821, 2
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
