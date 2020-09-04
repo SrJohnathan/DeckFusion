@@ -11,6 +11,10 @@ https://www.youtube.com/watch?v=tecZwDPnFXE
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/tecZwDPnFXE/0.jpg)](http://www.youtube.com/watch?v=tecZwDPnFXE "YU-GI-Oh Deck Fusion")
 
+## Framework
+
+Kotlin + LibGDX 3D
+
 https://libgdx.badlogicgames.com/
 
 sourceCompatibility = 1.8
