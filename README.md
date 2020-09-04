@@ -6,12 +6,7 @@
 
 A free yugioh game, made by a fan for fans, based on the combat system of the yugioh FM PS1, currently being in development
 
-
-
-https://effekseer.github.io/en/
-
 https://libgdx.badlogicgames.com/
-
 sourceCompatibility = 1.8
 
 ### Supported platforms
