@@ -1,6 +1,7 @@
 package br.com.deckfudion.johnathan.louder
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.assets.loaders.I18NBundleLoader.I18NBundleParameter
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
@@ -10,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 import com.badlogic.gdx.graphics.g3d.Model
+import com.badlogic.gdx.utils.I18NBundle
+import java.util.*
 
 
 class LouderFull {
@@ -66,16 +69,35 @@ class LouderFull {
             generetionBebas(Color.BLACK, 30)
 
 
+            generetionBebas(Color.WHITE, 18)
+
+
             generetionBebasBorder(Color.WHITE, 18)
+            generetionBebasBorder(Color.WHITE, 18, Color.CYAN)
             generetionBebasBorder(Color.WHITE, 23)
             generetionBebasBorder(Color.WHITE, 30)
             generetionBebasBorder(Color.WHITE, 35)
+
 
 
             generetionFonTOsBold(Color.WHITE, 20)
             generetionFonTOsBold(Color.WHITE, 30)
             generetionFonTOsBold(Color.WHITE, 40)
 
+
+
+
+            //ROOT
+            asset.load("data/language/language", I18NBundle::class.java)
+
+
+            // HOME
+            asset.load("data/wp/logo.jpg", Texture::class.java)
+
+
+            //MENU
+            asset.load("data/wp/fundorootmai.jpg", Texture::class.java)
+            asset.load("data/skin/panel.png", Texture::class.java)
 
 
             asset.load("data/sprites/card3d/cardtresd.atlas", TextureAtlas::class.java)
@@ -124,6 +146,18 @@ class LouderFull {
         }
 
 
+        fun relouderLanguage(){
+
+            asset.unload("data/language/language")
+            asset.update()
+            asset.finishLoading()
+            asset.load("data/language/language", I18NBundle::class.java)
+            asset.update()
+
+
+
+        }
+
         fun get() {
 
             if (asset.progress == 1.0f) {
@@ -148,7 +182,7 @@ class LouderFull {
 
 
 
-                setanumero?.regions?.forEach { atlasRegion: TextureAtlas.AtlasRegion? -> atlasRegion?.texture?.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)  }
+                setanumero?.regions?.forEach { atlasRegion: TextureAtlas.AtlasRegion? -> atlasRegion?.texture?.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)  }
             }
 
 
@@ -215,8 +249,10 @@ class LouderFull {
 
         }
 
-
-        private fun generetionBebasBorder(color: Color, size: Int) {
+        private fun generetionBebasBorder(color: Color, size: Int){
+            generetionBebasBorder(color, size, Color.BLACK)
+        }
+        private fun generetionBebasBorder(color: Color, size: Int,border:Color) {
 
             val paran = FreetypeFontLoader.FreeTypeFontLoaderParameter()
 
@@ -229,13 +265,13 @@ class LouderFull {
             parameter.size = size;
             parameter.shadowOffsetX = 0;
             parameter.shadowOffsetY = 0;
-            parameter.borderWidth = 2f
+            parameter.borderWidth = 1f
             parameter.spaceX = 1
-            parameter.borderColor = Color.BLACK
+            parameter.borderColor = border
 
             paran.fontParameters = parameter
 
-            asset.load(size.toString() + color.toString() + "bodata/font/bebas.ttf", BitmapFont::class.java, paran)
+            asset.load("${color.toString()}color${size.toString()}size${border.toString()}data/font/bebas.ttf", BitmapFont::class.java, paran)
 
         }
 

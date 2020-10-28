@@ -21,8 +21,48 @@ class Preferencies {
 
             }
         }
+        fun config(map: Map<String,String>,encryption:Boolean){
+            val pref: Preferences =   Gdx.app.getPreferences("config")
+            map.forEach {
+                if(encryption){
+                    pref.putString( Utiil.encryptDecrypt( it.key),Utiil.encryptDecrypt(it.value));
+
+                }else{
+                    pref.putString(it.key,it.value);
+
+                }
+                pref.flush()
+
+            }
+        }
+
+        fun getConfig(encryption:Boolean):Map<String,String?> {
+
+            val hash = HashMap<String, String>()
+
+            val pref: Preferences = Gdx.app.getPreferences("config")
+
+            pref.get().forEach {
+
+                if (encryption) {
+                    hash.put(Utiil.encryptDecrypt(it.key), Utiil.encryptDecrypt(it.value as String));
+
+                } else {
+                    hash.put(it.key, it.value as String)
+
+                }
+
+
+            }
+
+
+            return  hash
+        }
 
     }
+
+
+
 
 
 }

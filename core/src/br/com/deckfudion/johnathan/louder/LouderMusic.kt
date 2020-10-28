@@ -1,12 +1,11 @@
 package br.com.deckfudion.johnathan.louder
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.utils.Disposable
 
-class LouderMusic {
+class LouderMusic : Disposable {
 
 
     private val asset = AssetManager(ExternalFileHandleResolver())
@@ -16,17 +15,19 @@ class LouderMusic {
 
     var pause = false
     var reapet = false
+    var tmpvolume = 0f
 
     private var stopCall: Runnable? = null
 
     var cout = 0f
+    var duration = 2
     private var music: Music? = null
 
     fun load(id: Musics) {
 
 
         if (music != null) {
-
+            tmpvolume = music?.volume!!
             pause = true
             stopCall = Runnable {
 
@@ -43,6 +44,26 @@ class LouderMusic {
 
         }
 
+
+    }
+
+
+    fun  stop(runnable: Runnable){
+
+
+
+        if (music != null) {
+            tmpvolume = music?.volume!!
+            pause = true
+            stopCall = Runnable {
+
+                unload()
+
+                runnable.run()
+
+            }
+
+        }
 
     }
 
@@ -79,6 +100,11 @@ class LouderMusic {
                 asset.load("/gameData/som/caveira.ogg", Music::class.java)
                 isupdate = true
             }
+
+            Musics.INTRO_HOME -> {
+                asset.load("/gameData/som/introhome.ogg", Music::class.java)
+                isupdate = true
+            }
         }
 
     }
@@ -97,7 +123,7 @@ class LouderMusic {
 
         if (pause) {
 
-            cout += ((delta / 2))
+            cout += ((delta / duration))
 
             if (music?.volume!! <= 0.1f) {
                 pause = false
@@ -108,7 +134,7 @@ class LouderMusic {
                 }
 
             } else {
-                music?.volume = (1f - cout)
+                music?.volume = (tmpvolume - cout)
             }
 
 
@@ -216,6 +242,24 @@ class LouderMusic {
                 }
             }
 
+            Musics.INTRO_HOME -> {
+
+                music = asset.get("/gameData/som/introhome.ogg", Music::class.java)
+                music?.volume = 0.5f
+                music?.play()
+                music?.setOnCompletionListener { music: Music? ->
+
+                    if (reapet) {
+                        music?.play()
+                    } else {
+                        music?.dispose()
+                        unload()
+                    }
+
+
+                }
+            }
+
         }
 
 
@@ -252,6 +296,11 @@ class LouderMusic {
                 asset.unload("/gameData/som/caveira.ogg")
 
             }
+
+            Musics.INTRO_HOME -> {
+                asset.unload("/gameData/som/introhome.ogg")
+
+            }
         }
 
     }
@@ -262,9 +311,15 @@ class LouderMusic {
         AGUA_AMBIENT,
         EGITO,
         DESERTO,
-        CAVEIRA
+        CAVEIRA,
+        INTRO_HOME
 
 
+    }
+
+    override fun dispose() {
+        music?.dispose()
+        asset.dispose()
     }
 
 }

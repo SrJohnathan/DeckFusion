@@ -4,10 +4,12 @@ import br.com.deckfudion.johnathan.card.Card2dSmall
 import br.com.deckfudion.johnathan.card.DeckTotal
 import br.com.deckfudion.johnathan.louder.LouderFull
 import br.com.deckfudion.johnathan.utill.TextLouder
+import br.com.deckfudion.johnathan.utill.Vetores
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -53,6 +55,7 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
     val array = arrayListOf<Card2dSmall>()
     var thisCard = -1
 
+    var  vetoresCartas: Array<Vector2>? = null
 
     init {
 
@@ -72,11 +75,7 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
         card5?.idMao = 4
 
 
-        card1?.setPosition(150f, 120f)
-        card2?.setPosition((card2?.width!! * 2) + 60f, 120f)
-        card3?.setPosition((card2?.width!! * 3) + 120f, 120f)
-        card4?.setPosition((card2?.width!! * 4) + 180f, 120f)
-        card5?.setPosition((card2?.width!! * 5) + 240f, 120f)
+
 
 
 
@@ -117,6 +116,16 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
     }
 
     fun run() {
+
+
+        vetoresCartas = Vetores.position(card3!!)
+
+        card1?.setPosition(vetoresCartas!![0])
+        card2?.setPosition(vetoresCartas!![1])
+        card3?.setPosition(vetoresCartas!![2])
+        card4?.setPosition(vetoresCartas!![3])
+        card5?.setPosition(vetoresCartas!![4])
+
 
         table.addActor(card1)
         table.addActor(card2)
@@ -162,10 +171,10 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
 
                 override fun dragStop(event: InputEvent?, x: Float, y: Float, pointer: Int) {
                     if (!isFusion && !combate) {
-                        if ((card2dSmall.x > 530f || card2dSmall.x < 580f) && card2dSmall.y > 400f) {
+                        if ((card2dSmall.x > 530f || card2dSmall.x < 580f) && card2dSmall.y > 365f) {
 
                             if (cardDrag == -1) {
-                                card2dSmall.addAction(Actions.moveTo(560f, 405f, 0.1f))
+                                card2dSmall.addAction(Actions.moveTo(560f, 370f, 0.1f))
                                 cardDrag = card2dSmall.idMao
                                 rotate = true
                                 cacheButFusion = true
@@ -212,19 +221,20 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
         when (card2dSmall.idMao) {
 
             0 -> {
-                card2dSmall.addAction(Actions.moveTo(150f, 120f, 0.2f))
+                card2dSmall.addAction(Actions.moveTo( vetoresCartas!![0].x, 110f, 0.2f))
             }
             1 -> {
-                card2dSmall.addAction(Actions.moveTo((card2?.width!! * 2) + 60f, 120f, 0.2f))
+                card2dSmall.addAction(Actions.moveTo(vetoresCartas!![1].x, 110f, 0.2f))
             }
             2 -> {
-                card2dSmall.addAction(Actions.moveTo((card2?.width!! * 3) + 120f, 120f, 0.2f))
+
+                card2dSmall.addAction(Actions.moveTo(vetoresCartas!![2].x , 110f, 0.2f))
             }
             3 -> {
-                card2dSmall.addAction(Actions.moveTo((card2?.width!! * 4) + 180f, 120f, 0.2f))
+                card2dSmall.addAction(Actions.moveTo(vetoresCartas!![3].x, 110f, 0.2f))
             }
             4 -> {
-                card2dSmall.addAction(Actions.moveTo((card2?.width!! * 5) + 240f, 120f, 0.2f))
+                card2dSmall.addAction(Actions.moveTo(vetoresCartas!![4].x, 110f, 0.2f))
             }
 
 
@@ -244,7 +254,6 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
     fun shadow() {
 
         array.forEach { card2dSmall: Card2dSmall ->
-
             if (array.get(thisCard) != card2dSmall) {
                 card2dSmall.im.isVisible = true
             }
@@ -259,3 +268,5 @@ class HudCard2d(batch: Batch, viewport: Viewport, var deck: DeckTotal) : Stage(v
         fun click(id: Int)
     }
 }
+
+

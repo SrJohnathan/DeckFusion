@@ -3,7 +3,11 @@ package br.com.deckfudion.johnathan.libs.scene3d;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+
+import br.com.deckfudion.johnathan.libs.scene3d.camera.ActionCamera;
 
 public class Camera3d extends PerspectiveCamera {
 
@@ -11,14 +15,20 @@ public class Camera3d extends PerspectiveCamera {
 	private static CallBackMove callBackMove;
 	private static CallBackRotate callBackRotate;
 
+	private  Array<ActionCamera> actions;
+
 
 	public  Camera3d(){
 		//67
 		super(40, 1280,720);
+
+		actions = new Array<ActionCamera>(0);
+
 		position.set(0f, 0f, 0f);
 		lookAt(0,0,0);
 		near = 0.1f;
 		far = 300f;
+
 		update();
 		instance = this;
 		
@@ -64,9 +74,23 @@ public class Camera3d extends PerspectiveCamera {
     private static float rotateYaw, rotatePitch, rotateRoll;
     private static boolean rotateCompleted;
     private static float rotateLastPercent;
-    private static float rotatePercentDelta;
-    
-    public static   void moveTo(float x, float y, float z, float duration) {
+	private static float rotatePercentDelta;
+
+
+	private static float circularTime;
+	private static float circularDuration;
+	private static boolean circularCompleted;
+	private static boolean angleSet;
+	private static float startAngle = 0;
+	private static float radios = 0;
+	private static Actor3d actor3d;
+	private static Vector2 startZ;
+	private static double  degrees = 0;
+	private static  MoveCamera move;
+	private static float circularPercentDelta;
+	private static float circularLastPercent;
+
+	public static   void moveTo(float x, float y, float z, float duration) {
 
 
 
@@ -105,8 +129,6 @@ public class Camera3d extends PerspectiveCamera {
 		rotateBy( yaw,  pitch,  roll,  duration);
 	}
 
-
-
     public static void rotateBy(float yaw, float pitch, float roll, float duration){
     	rotateLastPercent = 0;
     	rotateTime = 0;
@@ -116,12 +138,116 @@ public class Camera3d extends PerspectiveCamera {
     	rotateDuration = duration;
     	rotateCompleted = false;
     }
-    
-    @Override
+
+	public static   void moveCircular(Actor3d actor3d,float radios, float degrees,MoveCamera moveCamera ,float duration) {
+
+
+    	Camera3d.degrees = (double) degrees;
+    	Camera3d.radios = radios;
+    	move = moveCamera;
+
+    	circularDuration = duration;
+
+    	if(startZ == null){
+    		startZ = new Vector2(actor3d.x,actor3d.y);
+		}else {
+			startZ.set(actor3d.x,actor3d.y);
+		}
+
+		angleSet = false;
+    	circularCompleted = false;
+
+	}
+
+	public void addActions (ActionCamera actions) {
+		actions.setCamera(Camera3d.this);
+		this.actions.add(actions);
+	}
+
+
+
+	public void rotated (Vector3 axis, float angle) {
+		direction.rotateRad(axis, angle);
+		up.rotateRad(axis, angle);
+	}
+
+	public void removeAction (ActionCamera action3d) {
+		if (actions.removeValue(action3d, true)) action3d.setCamera(null);
+	}
+
+	public Array<ActionCamera> getActions () {
+		return actions;
+	}
+
+	public void clearActions () {
+		for (int i = actions.size - 1; i >= 0; i--)
+			actions.get(i).setCamera(null);
+		actions.clear();
+	}
+
+	public void act (float delta) {
+
+
+
+			for (int i = 0; i < actions.size; i++) {
+
+				ActionCamera action3d = actions.get(i);
+
+				if (action3d.act(delta) && i < actions.size) {
+					actions.removeIndex(i);
+
+						action3d.setCamera(null);
+					i--;
+				}
+			}
+
+	}
+
+	@Override
 	public void update(){
     	super.update();
 
     	float delta = Gdx.graphics.getDeltaTime();
+
+
+
+    	if(!circularCompleted && startZ != null){
+
+			circularTime += delta;
+			circularCompleted = circularTime >= circularDuration;
+			float percent;
+			if (circularCompleted) {
+				percent = 1;
+			}else {
+				percent = circularTime / circularDuration;
+			}
+			circularPercentDelta = percent - circularLastPercent;
+
+			if (!angleSet) {
+
+
+				// calculate angle between start point and actor position
+
+
+				startAngle = (float) Math.toRadians( new Vector2(instance.position.x, instance.position.z).sub(startZ).angle());
+				angleSet = true;
+			}
+			double angle = (Math.toRadians(degrees) * (move.value() * delta / 1f)) + startAngle;
+
+			double x =  startZ.x + radios * Math.cos( (float)  ((double) angle) );
+			double z = startZ.y + radios * Math.sin( ( (float) ((double) angle)));
+
+
+
+
+
+			translate  ( (float) x  , position.y,(float ) z * circularLastPercent);
+
+
+
+		}
+
+
 		if(!moveCompleted){
 			moveTime += delta;
 	        moveCompleted = moveTime >= moveDuration;
@@ -148,6 +274,7 @@ public class Camera3d extends PerspectiveCamera {
 
 	        moveLastPercent = percent;
 		}
+
 		if(!rotateCompleted){
 			rotateTime += delta;
 	    	rotateCompleted = rotateTime >= rotateDuration;
@@ -168,6 +295,7 @@ public class Camera3d extends PerspectiveCamera {
 	        rotate(Vector3.Z, rotateRoll * rotatePercentDelta);
 	        rotateLastPercent = percent;
 		}
+
 		if (followedActor3d != null) {
 
 			//System.out.println(lookAt);
@@ -220,6 +348,8 @@ public class Camera3d extends PerspectiveCamera {
 			camera.direction.add(target.set(targetLocation)
 			.rot(followedActor3d.getTransform()).add(targetOffset)).sub(position).nor();*/
 		}
+
+
 	}
 	
 	
@@ -276,5 +406,25 @@ public class Camera3d extends PerspectiveCamera {
 	public interface CallBackRotate{
 
 		void complete();
+	}
+
+	public static enum MoveCamera{
+
+
+
+		SCHEDULE(1.0f),
+		COUNTER_CLOCKWISE(-1.0f);
+
+		private float v;
+
+		MoveCamera(float value) {
+			v = value;
+		}
+
+		private float value(){
+
+			return  v;
+
+		}
 	}
 }

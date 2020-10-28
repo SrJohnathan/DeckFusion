@@ -2,14 +2,20 @@ package br.com.deckfudion.johnathan.hud
 
 import br.com.deckfudion.johnathan.card.Card2dSmall
 import br.com.deckfudion.johnathan.custon.Particulas2D
+import br.com.deckfudion.johnathan.libs.scane2d.ActionMoveCircular
+import br.com.deckfudion.johnathan.libs.scane2d.moveCircle
+import br.com.deckfudion.johnathan.libs.scane2d.moveCircleActor
+import br.com.deckfudion.johnathan.libs.scane2d.moveElipse
 import br.com.deckfudion.johnathan.libs.scene3d.Camera3d
 import br.com.deckfudion.johnathan.louder.LouderFull
+import br.com.deckfudion.johnathan.screen.Arena
 import br.com.deckfudion.johnathan.utill.PcController
 import br.com.deckfudion.johnathan.utill.StyleClass
 import br.com.deckfudion.johnathan.utill.TextLouder
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -22,7 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.Viewport
 
-class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
+class AndroidController(arena: Arena,batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
 
 
 
@@ -32,12 +38,11 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
     var no: ImageButton? = null
     var vira: ImageButton? = null
     var go: ImageButton? = null
-    var olho: ImageButton? = null
-    var menu: ImageButton? = null
+
 
     var pcController: PcController? = null
 
-    var table = Table()
+
 
     var dialog: Dialog? = null
     var particulas2D1: Particulas2D? = null
@@ -52,6 +57,10 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
 
     private var isOlhoCall = false
 
+
+
+    var menu: ImageButton? = null
+
     init {
 
 
@@ -59,8 +68,8 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
 
         val rigthStyle = CheckBox.CheckBoxStyle()
         rigthStyle.font = TextLouder.styleBebas(Color.WHITE, 30).font
-        rigthStyle.checkboxOff = TextureRegionDrawable(LouderFull.asset.get("data/imagens/iconfu.png", Texture::class.java))
-        rigthStyle.checkboxOn = TextureRegionDrawable(LouderFull.asset.get("data/imagens/iconfu.png", Texture::class.java))
+        rigthStyle.checkboxOn = TextureRegionDrawable(arena.louderArena.assetI.get("data/skin/button02_hover.png", Texture::class.java))
+        rigthStyle.checkboxOff = TextureRegionDrawable(arena.louderArena.assetI.get("data/skin/button02_normal.png", Texture::class.java))
 
 
         val downStyle = ImageButton.ImageButtonStyle()
@@ -71,6 +80,8 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
 
 
         right = CheckBox("", rigthStyle)
+        right?.addActor(fusionlabel)
+
 
 
 
@@ -107,28 +118,41 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
         addActor(this.vira)
         vira?.isVisible = false
 
-        olho = ImageButton(StyleClass.olhoButton())
-        olho?.setPosition(650f, 640f)
-        addActor(olho)
+
+
+        menu = ImageButton(StyleClass.menuButton(arena.louderArena ))
+
+       val  iconmenu = Image(arena.louderArena.assetI.get("data/skin/Icon_setting.png",Texture::class.java))
+
+
+
+
+
+        menu?.addActor(iconmenu)
+        iconmenu.setPosition((menu?.x!! + ((menu?.width!! / 2f) - (iconmenu.width /2)  ) ),(menu?.y!! + ((menu!!.height / 2f) - (iconmenu.height /2)  ) ))
+
+        menu?.setPosition(1150f,580f)
+
+        addActor(menu)
+
+
+        addAction(Actions.delay(2f,Actions.run {
+
+           // iconmenu.addAction( Actions.repeat(RepeatAction.FOREVER, Actions().moveCircleActor(menu!!,100f,ActionMoveCircular.MethodCircle.SCHEDULE,false,5f,360f)))
+        }))
+
+
 
         go = ImageButton(StyleClass.goButton())
         go?.setPosition(650f, 640f)
         addActor(go)
 
-        menu = ImageButton(StyleClass.menuButton())
-        menu?.setPosition(450f, 640f)
-        addActor(menu)
 
-        fusionlabel.style.background = TextureRegionDrawable(LouderFull.asset.get("data/imagens/menu.png", Texture::class.java))
+
 
         fusionlabel.setAlignment(Align.center)
 
-        table.setPosition(1120f, 400f)
-        table.setSize(350f, 100f)
 
-        table.add(right).padRight(10f)
-        table.add(fusionlabel).width(180f).height(50f)
-        addActor(table)
 
         val w = Window.WindowStyle()
 
@@ -184,12 +208,12 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
             ok?.isVisible = true
 
             vira?.isVisible = true
-            olho?.isVisible = false
+
         } else {
             ok?.isVisible = false
             no?.isVisible = false
             vira?.isVisible = false
-            olho?.isVisible = true
+
         }
 
         if (pcController?.escolhaCampo!!) {
@@ -213,10 +237,10 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
             pcController?.hudCard2d?.cacheButFusion = false
             if (pcController?.hudCard2d?.cardDrag != -1) {
 
-                table.addAction(Actions.moveBy(200f, 0f, 0.1f))
+              //  table.addAction(Actions.moveBy(200f, 0f, 0.1f))
 
             } else {
-                table.addAction(Actions.moveBy(-200f, 0f, 0.1f))
+              //  table.addAction(Actions.moveBy(-200f, 0f, 0.1f))
             }
         }
 
@@ -247,9 +271,9 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
             override fun changed(event: ChangeEvent?, actor: Actor?) {
 
                 if (right?.isChecked!!) {
-                    table.addAction(Actions.moveTo(980f, 400f, 0.1f))
+                 //   table.addAction(Actions.moveTo(980f, 400f, 0.1f))
                 } else {
-                    table.addAction(Actions.moveTo(1120f, 400f, 0.1f))
+                 //   table.addAction(Actions.moveTo(1120f, 400f, 0.1f))
 
                     pcController?.fusion?.clear()
                     pcController?.hudCard2d?.allNumeberFusinInvisible()
@@ -363,7 +387,7 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
 
                                     })
                                     pcController?.pointLight?.set(Color.WHITE, 0f, 2f, -4f, 20f)
-                                    pcController?.hudArena?.cards?.addAction(Actions.moveBy(0f, -300f, 0.2f))
+                                    pcController?.hudArena?.tabledico?.addAction(Actions.moveBy(0f, -300f, 0.2f))
 
 
                                 }
@@ -432,7 +456,7 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
 
         })
 
-        olho?.addListener(object : ClickListener() {
+      /*  olho?.addListener(object : ClickListener() {
 
 
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -467,19 +491,21 @@ class AndroidController(batch: Batch, viewport: Viewport) : Stage(viewport, batc
             }
 
 
-        })
+        }) */
 
     }
 
 
     fun runcombate(card2dSmall: Card2dSmall, i: Int) {
 
-        card2dSmall.addAction(Actions.sequence(Actions.moveBy(0f, 500f, 0.5f),
+
+
+        card2dSmall.addAction(Actions.parallel(Actions.moveBy(0f, 500f, 0.5f),
                 Actions.run {
                     pcController?.builder3D?.moveToTabuUp(i, Runnable {
 
                         Camera3d.rotateBy(0f, -80f, 0f, 0.2f)
-                        Camera3d.moveTo(0f, 2.8f, -5.8f, 0.2f, object : Camera3d.CallBackMove {
+                        Camera3d.moveTo(0f, 2.8f, -5.6f, 0.2f, object : Camera3d.CallBackMove {
                             override fun complete() {
                                 pcController?.pointLight?.set(Color.WHITE, 0f, 6f, -6f, 100f)
                                 pcController?.hudCard?.array?.get(i)?.isVisible = false

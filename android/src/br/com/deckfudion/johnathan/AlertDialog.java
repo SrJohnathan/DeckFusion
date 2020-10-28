@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import org.jetbrains.annotations.NotNull;
 
 import br.com.deckfudion.johnathan.utill.ApiDialog;
+import br.com.deckfudion.johnathan.utill.Value;
 
 public class AlertDialog implements ApiDialog {
 
@@ -47,5 +48,16 @@ public class AlertDialog implements ApiDialog {
 
 
 
+    }
+
+    @Override
+    public void showDialogInput(@NotNull Value varl) {
+
+    }
+
+
+    @Override
+    public boolean isShow() {
+        return false;
     }
 }

@@ -1,9 +1,11 @@
 package com.aj.johnathan.yugi.screen
 
 import br.com.deckfudion.johnathan.Main
+import br.com.deckfudion.johnathan.Preferencies
 import br.com.deckfudion.johnathan.louder.LouderArena
 import br.com.deckfudion.johnathan.louder.LouderExternal
 import br.com.deckfudion.johnathan.louder.LouderFull
+import br.com.deckfudion.johnathan.louder.LouderSound
 import br.com.deckfudion.johnathan.utill.AlertDialog
 import br.com.deckfudion.johnathan.utill.AnimatedSprite
 import com.badlogic.gdx.Application
@@ -19,10 +21,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
+import io.reactivex.rxjava3.internal.jdk8.FlowableFirstStageSubscriber
 import java.io.FileNotFoundException
 
 
-class LoadingScreem(var game: Main, var screenId:Int) : Screen {
+class LoadingScreem(var game: Main) : Screen {
 
 
     companion object{
@@ -44,25 +47,14 @@ class LoadingScreem(var game: Main, var screenId:Int) : Screen {
 
     var   alert =  AlertDialog()
 
+
+
+
+
     init {
         camera = OrthographicCamera()
         viewport = FitViewport(1280f, 720f, camera)
         stage = Stage(viewport, game.batch)
-
-
-        //  video = VideoPlayerCreator.createVideoPlayer()
-
-        try {
-            if (Gdx.app.type == Application.ApplicationType.Android) {
-                // video?.play(Gdx.files.internal("data/sons/intro.mp4"))
-            } else {
-                //  video?.play(Gdx.files.internal("data/sons/intro.webm"))
-            }
-
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        }
-
 
     }
 
@@ -73,19 +65,16 @@ class LoadingScreem(var game: Main, var screenId:Int) : Screen {
     }
 
     override fun show() {
+
+        LouderSound.init()
+
+
         verificExternal = Gdx.files.external("/gameData").exists()
         renderProgressBar()
 
 
-        /*    LouderFull.initt()
-            AtlasLouder.initt()
-            LouderArena.load(game.particleSys) */
-
         LouderFull.initLouder()
 
-        when(screenId){
-
-            EXTERNAL_LOUDER -> {
                 if(verificExternal){
                     LouderExternal.initLouder()
                 }else{
@@ -95,91 +84,39 @@ class LoadingScreem(var game: Main, var screenId:Int) : Screen {
                     }
                 }
 
-              //  LouderExternal.initLouder()
-            }
-
-
-
-            0 ->{}
-        }
 
 
     }
 
     override fun render(delta: Float) {
 
+        LouderSound.asset.update()
 
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        //  Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D)
-        //  Gdx.gl20.glEnable(GL20.GL_BLEND)
-        // Gdx.gl.glDepthMask(true)
+
 
         game.batch.projectionMatrix = camera?.combined
         game.batch.projectionMatrix = stage?.camera?.combined
 
 
-        //  video?.render()
+        LouderExternal.asset.update()
+        LouderFull.asset.update()
+        //   LouderArena.getTextures(null)
+        if (LouderFull.asset.isFinished && LouderExternal.asset.isFinished  && isScreen) {
+            isScreen = false
+
+            //
 
 
-        when(screenId) {
+            //  video?.pause()
+            go()
 
-            EXTERNAL_LOUDER -> {
-
-                LouderExternal.asset.update()
-                LouderFull.asset.update()
-                //   LouderArena.getTextures(null)
-                if (LouderFull.asset.isFinished && LouderExternal.asset.isFinished  && isScreen) {
-                    isScreen = false
-
-                    //
-
-
-                    //  video?.pause()
-                    go()
-
-                }
-
-
-            }
-
-
-            0 ->{
-
-                LouderFull.asset.update()
-                //   LouderArena.getTextures(null)
-                if (LouderFull.asset.isFinished && isScreen) {
-                    isScreen = false
-
-                    //
-
-
-                    //  video?.pause()
-                    go()
-
-                }
-
-            }
         }
 
 
-            //  video == null
 
-
-            //  video?.dispose()
-            // go()
-
-
-            // init = true
-
-            //  video?.closenative()
-
-            //  video?.pause()
-
-            // video?.stop()
-
-            //  video?.closenative()
 
 
         stage?.act(delta)
@@ -226,22 +163,24 @@ class LoadingScreem(var game: Main, var screenId:Int) : Screen {
 
     private fun go() {
 
-        when(screenId) {
+        LouderSound.get()
+        LouderFull.get()
+        LouderExternal.get()
 
-            EXTERNAL_LOUDER -> {
-                LouderFull.get()
-                LouderExternal.get()
 
-            }
-            0-> {
-                LouderFull.get()
-            }
+        val map = Preferencies.getConfig(false)
+
+        if(map.containsKey("user")){
+
+
+            game.setCustonScreen(Main.Stages.MENU)
+        }else{
+            game.setCustonScreen(Main.Stages.HOME)
         }
 
 
 
 
-        game.setCustonScreen(screenId)
 
     }
 

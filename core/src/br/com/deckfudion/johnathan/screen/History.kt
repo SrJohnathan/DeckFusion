@@ -42,7 +42,11 @@ class History(var game: Main) : Screen, InputProcessor {
 
     val music = LouderMusic()
 
+
+
     init {
+
+
 
         asset.init()
 
@@ -105,6 +109,8 @@ class History(var game: Main) : Screen, InputProcessor {
         music.load(LouderMusic.Musics.EGITO)
 
 
+
+
     }
 
     override fun render(delta: Float) {
@@ -112,7 +118,6 @@ class History(var game: Main) : Screen, InputProcessor {
         asset.update()
         music.update(delta)
 
-        Gdx.input.inputProcessor = InputMultiplexer(mapHud, this)
 
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
@@ -126,44 +131,49 @@ class History(var game: Main) : Screen, InputProcessor {
         game.batch.projectionMatrix = mapHud?.camera?.combined
 
 
-        when (camp) {
+        if(asset.isfinishi){
+            when (camp) {
 
-            0 -> {
-                Gdx.input.inputProcessor = InputMultiplexer(mapHud, egito, this)
+                0 -> {
+
+                    Gdx.input.inputProcessor = InputMultiplexer(mapHud, egito, this)
 
 
+                }
+
+                1 -> {
+                    Gdx.input.inputProcessor = InputMultiplexer(mapHud, agua, this)
+
+
+                }
+
+                2 -> {
+                    Gdx.input.inputProcessor = InputMultiplexer(mapHud, terra, this)
+
+
+                }
             }
 
-            1 -> {
-                Gdx.input.inputProcessor = InputMultiplexer(mapHud, agua, this)
+
+            agua?.draw()
+            agua?.act(delta)
 
 
-            }
-
-            2 -> {
-                Gdx.input.inputProcessor = InputMultiplexer(mapHud, terra, this)
+            terra?.draw()
+            terra?.act(delta)
 
 
-            }
+            egito?.draw()
+            egito?.act(delta)
+
+            caveira?.draw()
+            caveira?.act(delta)
+
+            mapHud?.draw()
+            mapHud?.act(delta)
         }
 
 
-        agua?.draw()
-        agua?.act(delta)
-
-
-        terra?.draw()
-        terra?.act(delta)
-
-
-        egito?.draw()
-        egito?.act(delta)
-
-        caveira?.draw()
-        caveira?.act(delta)
-
-        mapHud?.draw()
-        mapHud?.act(delta)
 
     }
 

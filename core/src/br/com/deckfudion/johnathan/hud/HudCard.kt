@@ -123,7 +123,7 @@ class HudCard(batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
             override fun longPress(actor: Actor?, x: Float, y: Float): Boolean {
 
 
-                println(small.modoDefence)
+
                 when (small.modoDefence) {
 
                     true -> {

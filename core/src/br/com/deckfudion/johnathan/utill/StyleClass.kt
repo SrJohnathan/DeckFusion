@@ -1,5 +1,6 @@
 package br.com.deckfudion.johnathan.utill
 
+import br.com.deckfudion.johnathan.louder.LouderArena
 import br.com.deckfudion.johnathan.louder.LouderExternal
 import br.com.deckfudion.johnathan.louder.LouderFull
 import com.badlogic.gdx.graphics.Color
@@ -15,6 +16,9 @@ class StyleClass {
 
 
     companion object {
+
+
+
 
         fun olhoButton(): ImageButton.ImageButtonStyle {
 
@@ -41,11 +45,11 @@ class StyleClass {
             return value
         }
 
-        fun menuButton(): ImageButton.ImageButtonStyle {
+        fun menuButton(louderArena: LouderArena): ImageButton.ImageButtonStyle {
 
             val value = ImageButton.ImageButtonStyle()
-            value.imageUp = TextureRegionDrawable(LouderFull.asset.get("data/imagens/menuarena.png", Texture::class.java))
-            value.imageDown = TextureRegionDrawable(LouderFull.asset.get("data/imagens/menuarenaclick.png", Texture::class.java))
+            value.imageUp =   TextureRegionDrawable(louderArena.assetI.get("data/skin/resume_normal.png",Texture::class.java))
+            value.imageDown = TextureRegionDrawable(louderArena.assetI.get("data/skin/resume_pressed.png",Texture::class.java))
             return value
         }
 
@@ -71,6 +75,15 @@ class StyleClass {
 
 
             return  styleClass
+        }
+
+
+        fun button(): TextButton.TextButtonStyle {
+
+            val value = TextButton.TextButtonStyle()
+            value.font = TextLouder.styleFontInitOsRegularBold(Color.WHITE, 20).font
+            value.up = TextureRegionDrawable(LouderFull.asset.get("data/imagens/button.png", Texture::class.java))
+            return value
         }
 
 
@@ -117,8 +130,6 @@ class StyleClass {
 
             check.width = 80f
             check.height = 80f
-
-
 
             check.name = name
 

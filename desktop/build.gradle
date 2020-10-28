@@ -1,7 +1,7 @@
 import org.gradle.internal.jvm.Jvm
 
 apply plugin: "kotlin"
-
+apply plugin: "de.inetsoftware.setupbuilder"
 
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = ["src/"]
@@ -40,6 +40,11 @@ task dist(type: Jar) {
     with jar
 }
 
+dependencies {
+    implementation files('..\\lib\\gdx-video-desktop-natives.jar')
+    implementation files('..\\lib\\gdx-video-desktop.jar')
+}
+
 /*
 run {
     systemProperty "java.library.path", file("/libs").absolutePath
@@ -48,3 +53,25 @@ run {
 
 dist.dependsOn classes
 
+setupBuilder {
+    vendor = 'i-net software'
+    application = "SetupBuilder Plugin"
+    appIdentifier = "SetupBuilder"
+    version = '1.0'
+    licenseFile = 'license.txt'
+    // icons in different sizes for different usage. you can also use a single *.ico or *.icns file
+    icons = ['icon16.png', 'icon32.png', 'icon48.png', 'icon128.png']
+    // all files for all platforms
+    from( 'source' ) {
+        include 'files/*.jar'
+    }
+    bundleJre = 1.8
+}
+
+msi {
+    // files only for the Windows platform
+    from( 'windows' ) {
+        include 'foo.exe'
+        rename { 'bar.exe' }
+    }
+}

@@ -32,18 +32,18 @@ class MapHud(batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
     var labelestelas: Label? = null
     var labelespada: Label? = null
 
-    var seta: Image? = null
+
     var nameperson: Label? = null
     var capitulo: Label? = null
 
-    var menu: ImageButton? = null
+  //  var menu: ImageButton? = null
     var volta: ImageButton? = null
 
 
     init {
 
 
-        menu = ImageButton(StyleClass.menuButton())
+     //   menu = ImageButton(StyleClass.menuButton())
         volta = ImageButton(StyleClass.voltaButton())
 
 
@@ -62,7 +62,7 @@ class MapHud(batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
 
 
         tseta.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        seta = Image(tseta)
+
 
 
 
@@ -133,12 +133,14 @@ class MapHud(batch: Batch, viewport: Viewport) : Stage(viewport, batch) {
         tableTitle.row()
         tableTitle.add(ta2)
         tableTitle.row()
-        tableTitle.add(seta)
+
+        tableTitle.background = TextureRegionDrawable(tseta)
+
 
 
         tablecapi.add(volta).left().padTop(10f).padLeft(10f).expandX()
         tablecapi.add(tableTitle).padTop(10f).expandX()
-        tablecapi.add(menu).right().padTop(10f).padRight(10f).expandX()
+      //  tablecapi.add(menu).right().padTop(10f).padRight(10f).expandX()
 
 
         pixmap.dispose()

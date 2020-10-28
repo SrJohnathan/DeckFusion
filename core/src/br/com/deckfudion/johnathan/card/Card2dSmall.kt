@@ -6,6 +6,7 @@ import br.com.deckfudion.johnathan.louder.LouderFull
 import br.com.deckfudion.johnathan.utill.TextLouder
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Stack
@@ -122,6 +123,10 @@ class Card2dSmall(var card: Cards?) : Stack(), Disposable {
         es.dispose()
         esc.dispose()
 
+    }
+
+    fun setPosition(vector2: Vector2) {
+        this.setPosition(vector2.x,vector2.y)
     }
 
 

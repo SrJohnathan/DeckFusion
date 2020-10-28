@@ -29,11 +29,15 @@ class HistoryLouder {
 
         val file =  Gdx.files.external("/gameData/camps/")
         file.list().forEach { fileHandle ->
-
             external.load(fileHandle.path(), Texture::class.java)
 
         }
 
+        val oponents =  Gdx.files.external("/gameData/pngop/")
+        oponents.list().forEach { fileHandle ->
+            external.load(fileHandle.path(), Texture::class.java)
+
+        }
 
     }
 
@@ -45,9 +49,8 @@ class HistoryLouder {
             internall.update()
             external.update()
             if (internall.isFinished && external.isFinished) {
-                isfinishi = true
-
                 callLouder?.call()
+                isfinishi = true
 
             }
         }

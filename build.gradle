@@ -13,6 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "gradle.plugin.de.inetsoftware:SetupBuilder:4.8.7"
 
     }
 }
@@ -46,7 +47,7 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
@@ -55,8 +56,10 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-        api "es.e-ucm.com.badlogicgames.gdx:gdx-video-desktop:0.0.1-SNAPSHOT"
         implementation 'com.h2database:h2:1.4.200'
+        // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-jnigen
+        implementation'com.badlogicgames.gdx:gdx-jnigen:1.9.11'
+
     }
 }
 
@@ -98,8 +101,7 @@ project(":android") {
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-        api "es.e-ucm.com.badlogicgames.gdx:gdx-video-android:0.0.1-SNAPSHOT"
-        
+
     }
 }
 
@@ -117,7 +119,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-        api "es.e-ucm.com.badlogicgames.gdx:gdx-video:0.0.1-SNAPSHOT"
         implementation 'br.com.johnathan.gdx.effekseer:api:0.0.3'
+        implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
     }
 }

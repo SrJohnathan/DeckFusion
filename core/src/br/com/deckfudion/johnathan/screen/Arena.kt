@@ -3,7 +3,6 @@ package br.com.deckfudion.johnathan.screen
 import br.com.deckfudion.johnathan.Main
 import br.com.deckfudion.johnathan.card.BuilderCard3d
 import br.com.deckfudion.johnathan.card.DeckTotal
-import br.com.deckfudion.johnathan.custon.Particles3D
 import br.com.deckfudion.johnathan.hud.AndroidController
 import br.com.deckfudion.johnathan.hud.HudArena
 import br.com.deckfudion.johnathan.hud.HudCard
@@ -12,19 +11,17 @@ import br.com.deckfudion.johnathan.libs.scene3d.Actor3d
 import br.com.deckfudion.johnathan.libs.scene3d.Camera3d
 import br.com.deckfudion.johnathan.libs.scene3d.Stage3d
 import br.com.deckfudion.johnathan.libs.scene3d.actions.Actions3d
+import br.com.deckfudion.johnathan.libs.scene3d.camera.Actions
+import br.com.deckfudion.johnathan.libs.scene3d.camera.CameraMoveCircular
 import br.com.deckfudion.johnathan.louder.LouderArena
 import br.com.deckfudion.johnathan.louder.LouderExternal
 import br.com.deckfudion.johnathan.louder.LouderFull
 import br.com.deckfudion.johnathan.louder.LouderMusic
-import br.com.deckfudion.johnathan.utill.CallLouder
 import br.com.deckfudion.johnathan.utill.PcController
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
-import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.*
 import com.badlogic.gdx.graphics.g3d.Environment
 import com.badlogic.gdx.graphics.g3d.environment.PointLight
 import com.badlogic.gdx.graphics.g3d.particles.ParticleSystem
@@ -37,10 +34,10 @@ import particles.EffekseerManager
 import particles.ParticleEffekseer
 
 
-class Arena(var game: Main) : Screen {
+class Arena(var game: Main, var louderArena: LouderArena) : Screen {
 
     private var stage3d: Stage3d? = null
-    private var arena: Actor3d? = null
+     var arena: Actor3d? = null
     private var array: ArrayList<Actor3d>? = null
     private var camController: CameraInputController? = null
 
@@ -63,7 +60,7 @@ class Arena(var game: Main) : Screen {
     private var pointSpriteParticleBatch: PointSpriteParticleBatch? = null
     private val particleSys: ParticleSystem = ParticleSystem()
 
-    private val assetArena = LouderArena()
+
 
 
     private var  manager2d:  EffekseerManager? = null
@@ -81,13 +78,13 @@ class Arena(var game: Main) : Screen {
         camController = CameraInputController(stage3d?.camera)
         array = ArrayList()
 
-        hudArena = HudArena(game.batch!!, viewport!!)
+        hudArena = HudArena(game.batch!!, viewport!!,louderArena)
         hudCard = HudCard(game.batch!!, viewport!!)
-        androidController = AndroidController(game.batch!!, viewport!!)
-        hudCard2d = HudCard2d(game.batch!!, viewport!!, deck)
+        androidController = AndroidController(this,game.batch!!, viewport!!)
+        hudCard2d = HudCard2d(game.batch!!,FitViewport(1280f, 720f, OrthographicCamera(1280f,720f)), deck)
         val bicard = BuilderCard3d(stage3d!!)
 
-        pcController = PcController()
+        pcController = PcController(this)
 
 
         val environment = Environment()
@@ -106,7 +103,10 @@ class Arena(var game: Main) : Screen {
         //FUNTION
         arena?.setPosition(0f, -3f, -8f)
         arena?.addAction3d(Actions3d.rotateBy(90f, 0f, 0f, 0f))
-        arena?.scale(-0.15f)
+
+      //  arena?.addAction3d( Actions3d.moveCircular(2f,ActionMoveCircular.MethodCircle.SCHEDULE,true,5f,360f))
+
+
         Camera3d.rotateBy(0f, -10f, 0f, 0f)
 
 
@@ -121,18 +121,16 @@ class Arena(var game: Main) : Screen {
         androidController?.pcController = pcController
 
 
+        /*
         pointSpriteParticleBatch = PointSpriteParticleBatch()
         billboardParticleBatch = BillboardParticleBatch()
-
-
-
         pointSpriteParticleBatch?.texture?.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)
         pointSpriteParticleBatch?.setCamera(stage3d?.camera)
         billboardParticleBatch?.setCamera(stage3d?.camera)
         particleSys.add(pointSpriteParticleBatch)
         particleSys.add(billboardParticleBatch)
         particleSys.update()
-
+*/
 
 
         val came = OrthographicCamera(1280f,720f)
@@ -155,17 +153,7 @@ class Arena(var game: Main) : Screen {
 
 
 
-        assetArena.initLouder(particleSys)
-        assetArena.get(object :CallLouder{
-            override fun call() {
 
-                val part = Particles3D.Exploser(particleSys,assetArena)
-               // stage3d?.addActor3d(part)
-
-
-
-            }
-        })
 
     }
 
@@ -176,11 +164,16 @@ class Arena(var game: Main) : Screen {
     override fun show() {
 
 
+
+
         hudCard?.run()
         hudCard2d?.run()
         androidController?.run()
 
 
+        //BOTAO CHECKBOX  NA TABELA
+        hudArena?.tools?.row()
+        hudArena?.tools?.add(androidController?.right)
 
         stage3d?.addActor3d(arena)
 
@@ -195,7 +188,15 @@ class Arena(var game: Main) : Screen {
             particleUpPoder?.play()
 
             particleUpPoder?.setLacation(00f,-2f,-8f)
-            println( particleUpPoder?.isPlay)
+
+
+
+         /*   Camera3d.instance.addActions(Actions.parallel(
+
+            Actions.rotateTo(180f,0f,0f,10f)
+           , Actions.moveCircularActor(arena,4f,CameraMoveCircular.MethodCircle.SCHEDULE,true,10f,180f)
+            ))  */
+          //  Camera3d.moveCircular(arena,5f,180f,Camera3d.MoveCamera.SCHEDULE,6f)
 
         })
     }
@@ -203,10 +204,10 @@ class Arena(var game: Main) : Screen {
     override fun render(delta: Float) {
 
         music.update(delta)
-        assetArena.update(delta)
 
 
-        Gdx.input.inputProcessor = InputMultiplexer(hudCard2d, hudCard, androidController, pcController, camController)
+
+        Gdx.input.inputProcessor = InputMultiplexer(hudCard2d, hudCard, androidController,hudArena, pcController)
 
 
 
@@ -240,7 +241,7 @@ class Arena(var game: Main) : Screen {
         androidController?.draw()
 
 
-
+        Camera3d.instance.act(delta)
 
     }
 

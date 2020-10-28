@@ -6,10 +6,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class AlertDialog {
+public class AlertDialog implements ApiDialog {
 
     String className = "";
     private Class<? extends ApiDialog> alertDialog;
@@ -70,6 +72,59 @@ public class AlertDialog {
 
     }
 
+
+
+
+    @Override
+    public void showDialog(@NotNull Runnable runnable) {
+
+    }
+
+    @Override
+    public void showDialogInput(@NotNull Value varl) {
+
+        try {
+
+            Method method = alertDialog.getDeclaredMethod("showDialogInput",Value.class);
+
+
+            Object o =  method.invoke(apiDialog, varl);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
+    public boolean isShow() {
+        Object o = null;
+        try {
+
+            Method method = alertDialog.getDeclaredMethod("isShow");
+             o =  method.invoke(apiDialog);
+
+
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return Boolean.parseBoolean(String.valueOf(o));
+    }
 
     public interface GetValue {
         public void value(boolean v);

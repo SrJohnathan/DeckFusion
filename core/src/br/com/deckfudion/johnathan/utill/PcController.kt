@@ -5,13 +5,15 @@ import br.com.deckfudion.johnathan.hud.HudArena
 import br.com.deckfudion.johnathan.hud.HudCard
 import br.com.deckfudion.johnathan.hud.HudCard2d
 import br.com.deckfudion.johnathan.libs.scene3d.Camera3d
+import br.com.deckfudion.johnathan.libs.scene3d.camera.Actions
+import br.com.deckfudion.johnathan.libs.scene3d.camera.CameraMoveCircular
+import br.com.deckfudion.johnathan.screen.Arena
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g3d.environment.PointLight
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
 
-class PcController() : InputProcessor, HudCard2d.ClickHand {
+class PcController( var arena: Arena) : InputProcessor, HudCard2d.ClickHand {
 
     var actived = true
 
@@ -67,8 +69,18 @@ class PcController() : InputProcessor, HudCard2d.ClickHand {
 
             when (keycode) {
 
+                Input.Keys.SPACE ->{
 
-                Input.Keys.SPACE -> {
+                    Camera3d.instance.addActions( Actions.moveCircularActor(arena?.arena,8f, CameraMoveCircular.MethodCircle.SCHEDULE,true,0.3f,180f))
+                    Camera3d.instance.addActions( Actions.rotateTo(180f,0f,0f,0.3f))
+
+
+                //    Camera3d.rotateBy(180f,0f,0f,3f)
+                }
+
+
+
+            /*    Input.Keys.SPACE -> {
 
                     if (mao) {
                         actived = false
@@ -90,7 +102,7 @@ class PcController() : InputProcessor, HudCard2d.ClickHand {
                     }
 
 
-                }
+                } */
 
                 Input.Keys.BACKSPACE -> {
 

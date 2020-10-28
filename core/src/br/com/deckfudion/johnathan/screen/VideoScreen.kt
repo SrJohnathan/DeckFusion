@@ -45,7 +45,7 @@ class VideoScreen(var game: Main) : Screen {
                     videoPlayer?.stop()
                     render = false
 
-                    game.setScreen(History(game))
+                    game.superSetScrenn(History(game))
 
                 }
 
@@ -78,7 +78,7 @@ class VideoScreen(var game: Main) : Screen {
 
     override fun pause() {
 
-        videoPlayer?.pause()
+
     }
 
     override fun resume() {

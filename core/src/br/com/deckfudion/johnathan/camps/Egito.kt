@@ -1,5 +1,6 @@
 package br.com.deckfudion.johnathan.camps
 
+import br.com.deckfudion.johnathan.Main
 import br.com.deckfudion.johnathan.custon.ActorLine
 import br.com.deckfudion.johnathan.custon.IconCamp
 import br.com.deckfudion.johnathan.custon.IconGemas
@@ -196,6 +197,29 @@ class Egito(var history: History) : Stage(history.viewport, history.game.batch) 
                 }
 
 
+
+            }
+        } )
+        atem?.addListener ( object :ClickListener(){
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+
+                history.music.stop(Runnable {
+                    history.game.setCustonScreen(Main.Stages.ARENA)
+                })
+
+            }
+        } )
+
+
+
+        minion4?.addListener ( object :ClickListener(){
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+
+
+
+                history.music.stop(Runnable {
+                    history.game.setCustonScreen(Main.Stages.ARENA)
+                })
 
             }
         } )
